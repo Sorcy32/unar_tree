@@ -4,6 +4,7 @@ class Tree:
     данных списка, и отображать данные всех элементов списка
     """
     last_item = None
+    # TODO:  избавиться от переменной last_item. Переработать функцию add_item
     first_item = None
     len = 0
 
