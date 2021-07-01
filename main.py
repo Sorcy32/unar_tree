@@ -16,7 +16,7 @@ class Tree:
             self.first_item = item
             return
         last_item = self.first_item
-        while last_item.next:
+        for x in range(self.len):
             last_item = last_item.next
         item.previous = last_item
         last_item.next = item
@@ -28,7 +28,7 @@ class Tree:
         """
         cur_item = self.first_item
         for per in range(self.len+1):
-            print(f'{cur_item.previous} | {cur_item.data} | {cur_item.next}')
+            print(f'{cur_item.data}')
             cur_item = cur_item.next
 
     def get_item(self, data):
@@ -54,6 +54,7 @@ class Tree:
             if per == data:
                 return cur_item
             cur_item = cur_item.next
+        return cur_item
 
     def del_item(self, data):
         """
@@ -65,13 +66,23 @@ class Tree:
         current.next.previous = current.previous
         self.len -= 1
 
+    def del_item_by_index(self, index):
+        """
+        Удаление элемента списка
+        :param index: Индекс удаляемого элемента
+        """
+        current = self.get_item_by_index(index)
+        current.previous.next = current.next
+        current.next.previous = current.previous
+        self.len -= 1
+
 
 class Item:
     """
-    Клосс элемента списка.
-    data: хранит пользовательские данные
-    previous: ссылка на предыдущий элемент списка. None - если отсутствует
-    next: ссылка на следующий элемент списка. None - если отсутствует
+    Класс элемента списка.
+    data: хранит пользовательские данные.
+    previous: ссылка на предыдущий элемент списка. None - если отсутствует.
+    next: ссылка на следующий элемент списка. None - если отсутствует.
     """
     data = None
 
@@ -85,10 +96,16 @@ if __name__ == '__main__':
     #  Создадим и наполним список
     tree = Tree()
     for z in range(1, 6):
-        tree.add_item(f'Данные в уровне денрева №{z}')
+        tree.add_item(f'Данные в уровне дерева №{z}')
     #  Примеры использования.
     tree.show_items_data()  # Показать данные всех элементов дерева
-    print(10*"*", '\n', tree.get_item("Данные в уровне денрева №2").data, '\n', 10*"*")  # получаем элемент дерева и
+    print(10*"*", '\n', tree.get_item("Данные в уровне дерева №2").data, '\n', 10*"*")  # получаем элемент дерева и
     # его данные по данным.
-    tree.del_item("Данные в уровне денрева №3")  # удаляем элемент списка
+    tree.del_item("Данные в уровне дерева №3")  # удаляем элемент списка
     tree.show_items_data()  # снова выводим элементы списка
+    tree.del_item_by_index(2)
+    tree.show_items_data()
+
+
+
+
